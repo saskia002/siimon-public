@@ -1,0 +1,9 @@
+spring:
+  devtools:
+    restart:
+      enabled: true  # Set to enable hot deployment
+      additional-paths: src/main/java # restart directory
+      log-condition-evaluation-delta: false
+  threads:
+      virtual:
+          enabled: true

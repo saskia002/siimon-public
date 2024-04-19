@@ -1,0 +1,38 @@
+[Unit]
+Description=springboot backend service
+After=syslog.target
+
+[Service]
+StandardOutput=journal
+StandardError=journal
+Type=simple
+User=backend
+SuccessExitStatus=143
+WorkingDirectory=/var/www/siimon/backend
+ExecStart=/usr/bin/java -jar -Xlog:gc -XX:+UseZGC -XX:+ZGenerational /var/www/siimon/backend/backend-0.jar
+
+[Install] 
+WantedBy=multi-user.target
+
+
+## (optional) Add limits for springboot service
+# export _JAVA_OPTIONS="-Xmx700M -Xms700M -XX:MaxMetaspaceSize=128M -Xss256K"
+####################
+
+# 1. /etc/systemd/system <- add backend.service
+## create springboot service ???
+# sudo ln -s /var/www/siimon/backend/backend-0.jar /etc/init.d/backend
+
+# adduser backend --shell=/bin/false --no-create-home
+# chown backend:backend backend-0.jar
+# chown backend:backend /var/www/siimon/
+# chmod g+x backend-0.jar
+# chmod g+x /var/www/siimon/
+# chown backend:backend /var/www/siimon/*
+
+## Springboot service setup
+# sudo systemctl daemon-reload
+# sudo systemctl enable backend
+# sudo systemctl start backend
+# sudo systemctl status backend
+
